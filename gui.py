@@ -1,20 +1,25 @@
 import functions
 import PySimpleGUI as sg
 import time
+import os
 
-sg.theme("Black")
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", "w") as file:
+        pass
+
+sg.theme("DarkAmber")
 
 clock = sg.Text("", key="clock")
 label = sg.Text("Type in a to-do")
 input_box = sg.InputText(tooltip="Enter todo", key="todo")
-add_button = sg.Button(size=40, image_source="add.png", tooltip="Add a To-Do ", key="Add")
+add_button = sg.Button("Add", tooltip="Add a To-Do ", key="Add")
 
 list_box = sg.Listbox(values=functions.get_todos(), key='todos', enable_events=True,  size=[45,10])
 edit_button = sg.Button("Edit")
-complete_button = sg.Button(image_source="complete.png", key='Complete', tooltip="Complete a To-Do")
+complete_button = sg.Button("Complete", key='Complete', tooltip="Complete a To-Do")
 exit_button = sg.Button("Exit")
 
-window = sg.Window('My To-Do App',
+window = sg.Window('To-do App',
                    layout=[[clock],
                         [label],
                         [input_box, add_button],
